@@ -1,0 +1,26 @@
+{
+    "name": "srclab/permissions",
+    "description": "Laravel permissions package",
+    "type": "library",
+    "license": "Private",
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=7.0.0",
+        "laravel/framework": ">5.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "SrcLab\\Permissions\\": "src/"
+        },
+        "files": [
+            "src/Support/helpers.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SrcLab\\Permissions\\PermissionsServiceProvider"
+            ]
+        }
+    }
+}
