@@ -97,7 +97,7 @@ class PermissionsServiceProvider extends ServiceProvider
             ], 'permissions-config');
 
             $this->publishes([
-                PERMISSIONS_PACKAGE_PATH.'/public' => public_path('vendor/permissions'),
+                PERMISSIONS_PACKAGE_PATH.'/public' => public_path('vendor/srclab/permissions'),
             ], 'permissions-assets');
         }
     }

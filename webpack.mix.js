@@ -3,7 +3,7 @@ const mix = require('laravel-mix');
 
 mix
     .sass('resources/sass/app.sass', 'css/')
-    .js('resources/js/app.jsx', 'js/')
+    .js('resources/js/index.js', 'js/app.js')
 
     .setPublicPath('public')
     .options({
@@ -13,9 +13,8 @@ mix
         }
     })
     .react()
-    .copy('public', '../../../public/vendor/permissions');
-    // mix.webpackConfig({
-    //     devtool: "inline-source-map"
-    // })
-    // .sourceMaps()
+    mix.webpackConfig({
+        devtool: "inline-source-map"
+    })
+    .sourceMaps()
 ;

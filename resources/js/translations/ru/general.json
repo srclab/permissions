@@ -1,0 +1,10 @@
+{
+  "view": {
+    "back_button": "Назад",
+    "navbar_title": "Srclab Permissions",
+    "permissions": "Список прав пользователей",
+    "groups": "Список групп пользователей",
+    "users": "Список пользователей с правами",
+    "": ""
+  }
+}
