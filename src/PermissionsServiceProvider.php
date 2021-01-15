@@ -33,6 +33,7 @@ class PermissionsServiceProvider extends ServiceProvider
         $this->registerResources();
         $this->registerTranslations();
         $this->registerRoutes();
+        $this->registerMigrations();
     }
 
     /**
@@ -113,7 +114,16 @@ class PermissionsServiceProvider extends ServiceProvider
             $this->commands([
                 Console\AssetsCommand::class,
                 Console\InstallCommand::class,
+                Console\MigratePermissionsFromConfigCommand::class,
             ]);
         }
+    }
+
+    /**
+     * Register migrations.
+     */
+    protected function registerMigrations()
+    {
+        $this->loadMigrationsFrom(PERMISSIONS_PACKAGE_PATH.'/database/migrations');
     }
 }

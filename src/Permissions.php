@@ -89,67 +89,11 @@ class Permissions
      */
     public function getPermissions(array $filter = [])
     {
-        return app(\SrcLab\Permissions\Repositories\Permission::class)->getPermissionsList();
+        $permissions = app(\SrcLab\Permissions\Repositories\Permission::class)->getPermissionsList($filter);
 
-        // todo
-        ///**
-        // * Добавление групп и пользователей, которые имеют эти права.
-        // */
-        //$groups_permissions = app(\App\Repositories\UserGroupPermission::class)->getByPermissions(array_keys($permissions), ['group'])->groupBy('permission_id');
-        //$users_permissions = app(\App\Repositories\UserPermission::class)->getByPermissions(array_keys($permissions), ['user'])->groupBy('permission_id');
-        //
-        //foreach ($permissions as $permission_id => &$permission) {
-        //
-        //    $permission_groups = $groups_permissions->get($permission_id);
-        //    $permission_users = $users_permissions->get($permission_id);
-        //
-        //    $permission['groups'] = empty($permission_groups) || $permission_groups->isEmpty() ? $permission_groups : $permission_groups->pluck('group')->filter();
-        //    $permission['users'] = empty($permission_users) || $permission_users->isEmpty() ? $permission_users : $permission_users->pluck('user')->filter();
-        //
-        //}
-        //
-        //return $permissions;
-    }
-
-    /**
-     * Изменение прав и группы пользователя.
-     *
-     * @param int $id
-     * @param array $data
-     * @return array
-     */
-    public function editUserPermissions($id, array $data)
-    {
-        /** @var \SrcLab\Permissions\Models\User $user */
-        $user = app(\SrcLab\Permissions\Repositories\User::class)->find($id);
-
-        if(empty($user)) {
-            return Response::error('Пользователь не найден.');
-        }
-
-        /**
-         * Обновление прав с исключением из списка прав группы.
-         */
-        $permissions = array_diff($data['permissions'] ?? [], $user->group->getPermissions());
-
-        app(\SrcLab\Permissions\Repositories\UserPermission::class)->updateUserPermissions($id, $permissions);
-
-        /**
-         * Обновление группы пользователя.
-         */
-        if($user->group_id != $data['group_id']) {
-            $user->group_id = $data['group_id'];
-            $user->update();
-        }
-
-        /**
-         * Очистка кеша.
-         * @var \Illuminate\Contracts\Cache\Repository $cache
-         */
-        $cache = app('cache');
-        $cache->forget("user_permissions:{$id}");
-
-        return Response::success('Пользователь изменен.');
+        return Response::success(null, [
+            'permissions' => $permissions
+        ]);
     }
 
 }

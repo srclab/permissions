@@ -1,27 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\Web\Admin\Permissions;
+namespace SrcLab\Permissions\Http\Controllers;
 
-use App\Base\Admin\Permission\User;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use SrcLab\Permissions\Users;
 
 class UserController extends Controller
 {
     /**
-     * @var \App\Base\Admin\Permission\User
+     * @var \SrcLab\Permissions\Users
      */
     private $base;
 
     /**
      * PermissionController constructor.
      *
-     * @param \App\Base\Admin\Permission\User $base
+     * @param \SrcLab\Permissions\Users $base
      */
-    public function __construct(User $base)
+    public function __construct(Users $base)
     {
-        $this->middleware('admin_access:admin_permissions');
-
         $this->base = $base;
     }
 
@@ -29,13 +26,11 @@ class UserController extends Controller
      * Список пользователей.
      *
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        return view('admin.permission.users.index', [
-            'data' => $this->base->user_repository->getUsersForPermissions($request->all()),
-        ]);
+        return $this->returnJsonResult($this->base->getUsers($request->all()));
     }
 
     /**

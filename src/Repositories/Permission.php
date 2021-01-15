@@ -14,28 +14,35 @@ class Permission extends Repository
     /**
      * Получение списка прав.
      *
-     * @param null $search
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @param array $filter
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      */
-    public function getPermissionsList($search = null)
+    public function getPermissionsList(array $filter = [])
     {
-        $builder = $this->query();
-
-        if(!empty($search)) {
-
-            if(is_numeric($search)) {
-                $builder->where('id', $search);
-            } else {
-                $builder->where(function ($query) use ($search) {
+        $builder = $this->query()
+            ->with([
+                'groups',
+                'users' => function($query) {
                     /** @var \Illuminate\Database\Query\Builder $query */
-                    $query->where('name', 'like', "%{$search}%")
-                        ->orWhere('description', 'like', "%{$search}%");
+                    $query->limit(10);
+                }
+            ]);
+
+        if(!empty($filter['search'])) {
+
+            if(is_numeric($filter['search'])) {
+                $builder->where('id', $filter['search']);
+            } else {
+                $builder->where(function ($query) use ($filter) {
+                    /** @var \Illuminate\Database\Query\Builder $query */
+                    $query->where('name', 'like', "%{$filter['search']}%")
+                        ->orWhere('description', 'like', "%{$filter['search']}%");
                 });
             }
 
         }
 
-        return $builder->paginate(20);
+        return $builder->get();
     }
 
 }

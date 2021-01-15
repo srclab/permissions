@@ -17,7 +17,7 @@ class UserGroup extends Model
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = app_config('permissions.tables.user_groups');
+        $this->table = app_config('permissions.tables.users_groups');
     }
 
     //****************************************************************
@@ -41,6 +41,16 @@ class UserGroup extends Model
     public function users()
     {
         return $this->hasMany(User::class, User::getUserGroupField(), 'id');
+    }
+
+    /**
+     * Права группы.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class, app_config('permissions.tables.users_groups_permissions'), 'group_id', 'permission_id');
     }
 
     //****************************************************************

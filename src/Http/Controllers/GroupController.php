@@ -27,11 +27,11 @@ class GroupController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
-        return view('admin.permission.groups.index', ['data' => $this->base->group_repository->getAll()]);
+        return $this->returnJsonResult($this->base->getGroups());
     }
 
     /**

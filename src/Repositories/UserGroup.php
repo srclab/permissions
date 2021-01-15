@@ -24,4 +24,23 @@ class UserGroup extends Repository
             ->exists();
     }
 
+    /**
+     * Получение списка групп.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getGroupsList()
+    {
+        return $this->query()
+            ->with([
+                'users' => function($query) {
+                    /** @var \Illuminate\Database\Query\Builder $query */
+                    $query->limit(15);
+                },
+                'permissions',
+                'parent'
+            ])
+            ->get();
+    }
+
 }

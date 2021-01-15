@@ -9,7 +9,7 @@ use SrcLab\Permissions\Support\Response;
 class Groups
 {
     /**
-     * @var GroupRepository
+     * @var \SrcLab\Permissions\Repositories\UserGroup
      */
     public $group_repository;
 
@@ -21,6 +21,20 @@ class Groups
     public function __construct(GroupRepository $group_repository)
     {
         $this->group_repository = $group_repository;
+    }
+
+    /**
+     * Получение списка групп.
+     *
+     * @return array
+     */
+    public function getGroups()
+    {
+        $groups = $this->group_repository->getGroupsList();
+
+        return Response::success(null, [
+            'groups' => $groups,
+        ]);
     }
 
     /**

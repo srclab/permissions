@@ -4,6 +4,7 @@ namespace SrcLab\Permissions\Http\Controllers;
 
 use Illuminate\Http\Request;
 use SrcLab\Permissions\Permissions;
+use SrcLab\Permissions\Support\Response;
 
 class PermissionController extends Controller
 {
@@ -37,13 +38,11 @@ class PermissionController extends Controller
      * Список прав.
      *
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\JsonResponse
      */
     public function permissions(Request $request)
     {
-        return view('admin.permission.permissions', [
-            'data' => $this->base->getPermissions($request->all()),
-        ]);
+        return $this->returnJsonResult($this->base->getPermissions($request->all()));
     }
 
 }

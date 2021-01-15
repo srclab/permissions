@@ -34,7 +34,7 @@ class User extends Model
      */
     public function getGroupIdAttribute()
     {
-        return $this->{self::getUserGroupField()};
+        return $this->attributes[self::getUserGroupField()] ?? null;
     }
 
     /**
