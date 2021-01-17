@@ -25,12 +25,22 @@ export const apiMiddleware = store => next => action => {
         headers: {
             'Content-Type': 'application/json',
         },
-        data: request
+        data: request,
+        validateStatus: function (status) {
+            return status >= 200 && status < 300 || status === 422;
+        },
     }).then(response => {
 
-        if (response.data.errors) {
+        if (response.data.errors || response.data.operation_status.status === 'error') {
 
-            const {message, code, validation} = response.data.errors[0];
+            let message, code, validation;
+
+            if(response.data.errors) {
+                ({message, code, validation} = response.data.errors[0]);
+            } else {
+                message = response.data.operation_status.message;
+                code = response.data.operation_status.code;
+            }
 
             if (code && code === 'not_auth') {
                 window.location = '/';

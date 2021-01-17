@@ -1,6 +1,24 @@
-import {LOAD_GROUPS, LOAD_PERMISSIONS, LOAD_USERS} from '../constants/actionTypes'
+import {CHANGE_PAGE, CLEAR_SEARCH, LOAD_GROUPS, LOAD_PERMISSIONS, LOAD_USERS} from '../constants/actionTypes'
 import {GET_API_URL} from "../constants/apiConstants";
 import {GROUPS_ENDPOINT, PERMISSIONS_ENDPOINT, USERS_ENDPOINT} from "../constants/routeConstants";
+
+/**
+ * Смена страницы.
+ *
+ * @param page
+ * @param search
+ */
+export const changePage = (page, search) => ({
+    type: CHANGE_PAGE,
+    payload: {page, search}
+});
+
+/**
+ * Очистка строки поиска.
+ */
+export const clearSearch = () => ({
+    type: CLEAR_SEARCH,
+});
 
 /**
  * Загрузка списка прав.

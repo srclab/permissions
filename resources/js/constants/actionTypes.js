@@ -18,3 +18,17 @@ export const LOAD_GROUPS = 'LOAD_GROUPS';
  * @type {string}
  */
 export const LOAD_USERS = 'LOAD_USERS';
+
+/**
+ * Смена станицы.
+ *
+ * @type {string}
+ */
+export const CHANGE_PAGE = 'CHANGE_PAGE';
+
+/**
+ * Очистка строки поиска.
+ *
+ * @type {string}
+ */
+export const CLEAR_SEARCH = 'CLEAR_SEARCH';

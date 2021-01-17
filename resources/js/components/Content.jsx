@@ -1,20 +1,26 @@
 import React from 'react';
 import {withTranslation} from 'react-i18next'
-import Permissions from "./Permissions";
-import Groups from "./Groups";
-import Users from "./Users";
+import {connect} from 'react-redux'
+import pages from "./Pages/pages";
 
 class Content extends React.Component {
     render() {
 
-        const content_component = this.props.page === 'permissions' ? <Permissions /> : (this.props.page === 'groups' ? <Groups /> : <Users />);
+        const page = this.props.app.get('page'),
+            content_component = pages[page];
 
         return (
             <main role="main" className="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
                 {content_component}
             </main>
-        );
+        )
     }
 }
 
-export default withTranslation('general')(Content);
+function mapStateToProps(state) {
+    return {
+        app: state.get('app'),
+    }
+}
+
+export default withTranslation('general')(connect(mapStateToProps)(Content));

@@ -7,9 +7,7 @@ import {fail_type, request_type, response_type} from "../../constants/apiConstan
  *
  * @type {Immutable.Map}
  */
-const immutableState = Immutable.Map({
-    loading: true
-});
+const immutableState = Immutable.Map({});
 
 /**
  * UsersReducer
