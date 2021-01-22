@@ -128,4 +128,4 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-export default withTranslation('general')(connect(mapStateToProps, mapDispatchToProps, null, {forwardRef: true })(Users));
+export default withTranslation('general')(connect(mapStateToProps, mapDispatchToProps)(Users));

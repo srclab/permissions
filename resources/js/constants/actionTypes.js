@@ -6,6 +6,20 @@
 export const LOAD_PERMISSIONS = 'LOAD_PERMISSIONS';
 
 /**
+ * Загрузка списка ui групп для создания разрешения.
+ *
+ * @type {string}
+ */
+export const LOAD_PERMISSIONS_UI_GROUPS = 'LOAD_PERMISSIONS_UI_GROUPS';
+
+/**
+ * Создание разрешения.
+ *
+ * @type {string}
+ */
+export const CREATE_PERMISSION = 'CREATE_PERMISSION';
+
+/**
  * Загрузка списка групп.
  *
  * @type {string}

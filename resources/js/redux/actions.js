@@ -1,6 +1,18 @@
-import {CHANGE_PAGE, CLEAR_SEARCH, LOAD_GROUPS, LOAD_PERMISSIONS, LOAD_USERS} from '../constants/actionTypes'
+import {
+    CHANGE_PAGE,
+    CLEAR_SEARCH,
+    CREATE_PERMISSION,
+    LOAD_GROUPS,
+    LOAD_PERMISSIONS,
+    LOAD_USERS
+} from '../constants/actionTypes'
 import {GET_API_URL} from "../constants/apiConstants";
-import {GROUPS_ENDPOINT, PERMISSIONS_ENDPOINT, USERS_ENDPOINT} from "../constants/routeConstants";
+import {
+    CREATE_PERMISSION_ENDPOINT,
+    GROUPS_ENDPOINT,
+    PERMISSIONS_ENDPOINT,
+    USERS_ENDPOINT
+} from "../constants/routeConstants";
 
 /**
  * Смена страницы.
@@ -35,6 +47,19 @@ export const loadPermissions = (search) => ({
     request: {
         search: search
     }
+});
+
+/**
+ * Создание права.
+ */
+export const createPermission = (data) => ({
+    type: CREATE_PERMISSION,
+    apiCall: true,
+    isRestAPI: {
+        host: GET_API_URL(CREATE_PERMISSION_ENDPOINT),
+        method: 'post',
+    },
+    payload: {data}
 });
 
 /**

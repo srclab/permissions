@@ -24,23 +24,12 @@ class PermissionController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function index(Request $request)
-    {
-        return view('permissions::index');
-    }
-
-    /**
      * Список прав.
      *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function permissions(Request $request)
+    public function index(Request $request)
     {
         return $this->returnJsonResult($this->base->getPermissions($request->all()));
     }
