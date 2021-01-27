@@ -38,7 +38,7 @@ class UserGroup extends Repository
                     $query->limit(15);
                 },
                 'permissions',
-                'parent'
+                'parent.permissions'
             ])
             ->get();
     }

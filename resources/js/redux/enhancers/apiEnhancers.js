@@ -36,7 +36,9 @@ export const apiMiddleware = store => next => action => {
             let message, code, validation;
 
             if(response.data.errors) {
-                ({message, code, validation} = response.data.errors[0]);
+                message = 'validation';
+                validation = response.data.errors;
+                code = 422;
             } else {
                 message = response.data.operation_status.message;
                 code = response.data.operation_status.code;

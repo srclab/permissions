@@ -3,9 +3,11 @@ import {withTranslation} from 'react-i18next'
 import { connect } from 'react-redux'
 import {bindActionCreators} from "redux";
 import {loadPermissions} from "../../redux/actions";
-import TextInput from "../Form/TextInput";
-import LoadIndicator from "../Request/LoadIndicator";
+import Search from "../Form/Search";
+import LoadIndicator from "../Common/LoadIndicator";
 import PageLink from "../Common/PageLink";
+import {error_type, fetching_type} from "../../constants/apiConstants";
+import {LOAD_PERMISSIONS} from "../../constants/actionTypes";
 
 class Permissions extends React.Component {
 
@@ -38,15 +40,14 @@ class Permissions extends React.Component {
     render() {
 
         const permissions = this.props.permissionsList.get('permissions'),
-            fetching = this.props.permissionsList.get('fetching'),
-            error = this.props.permissionsList.get('loadPermissionsListError');
+            fetching = this.props.permissionsList.get(fetching_type(LOAD_PERMISSIONS)),
+            error = this.props.permissionsList.get(error_type(LOAD_PERMISSIONS));
 
-        //todo create
         return (
             <>
-                <h3>{this.props.t('view.permissions')} <button type="button" className="btn btn-outline-primary">{this.props.t('view.create')}</button></h3>
+                <h3>{this.props.t('view.permissions')} <PageLink page="create_permission" class_name="btn btn-outline-primary">{this.props.t('view.create')}</PageLink></h3>
                 <br/>
-                <TextInput onChangeValue={this.searchChanged} placeholder={this.props.t('view.search')} buttonText={this.props.t('view.search_go')} />
+                <Search onChangeValue={this.searchChanged} placeholder={this.props.t('view.search')} buttonText={this.props.t('view.search_go')} />
                 <br/>
                 {
                     fetching || error ?
@@ -75,7 +76,7 @@ class Permissions extends React.Component {
                                             return (
                                                 <tr key={key}>
                                                     <th scope="row">{permission.get('id')}</th>
-                                                    <td>{permission.get('name')}</td>
+                                                    <td><PageLink page={'edit_permission'} id={permission.get('id')}>{permission.get('name')}</PageLink></td>
                                                     <td>{permission.get('description')}</td>
                                                     <td>
                                                         {
@@ -83,7 +84,7 @@ class Permissions extends React.Component {
                                                                 groups.map((group, key) => {
                                                                     return (
                                                                         <div key={key}>
-                                                                            <PageLink page="groups">
+                                                                            <PageLink page="edit_group" id={group.get('id')}>
                                                                                 ID{group.get('id')} {group.get('name')}
                                                                             </PageLink>
                                                                             <br/>

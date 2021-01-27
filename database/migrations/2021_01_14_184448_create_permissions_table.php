@@ -19,7 +19,7 @@ class CreatePermissionsTable extends Migration
 
         Schema::create(app_config('permissions.tables.permissions'), function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 64);
+            $table->string('name', 64)->unique();
             $table->string('description', 256)->nullable();
             $table->tinyInteger('ui_group')->default(0)->comment('For UI grouping');
             $table->dateTime('created_at')->nullable();

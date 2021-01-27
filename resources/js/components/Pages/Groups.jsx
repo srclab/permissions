@@ -3,7 +3,10 @@ import {withTranslation} from 'react-i18next'
 import { connect } from 'react-redux'
 import {bindActionCreators} from "redux";
 import {loadGroups} from "../../redux/actions";
-import LoadIndicator from "../Request/LoadIndicator";
+import LoadIndicator from "../Common/LoadIndicator";
+import {error_type, fetching_type} from "../../constants/apiConstants";
+import {LOAD_GROUPS} from "../../constants/actionTypes";
+import PageLink from "../Common/PageLink";
 
 class Groups extends React.Component {
 
@@ -14,12 +17,12 @@ class Groups extends React.Component {
     render() {
 
         const groups = this.props.groupsList.get('groups'),
-            fetching = this.props.groupsList.get('fetching'),
-            error = this.props.groupsList.get('loadGroupsListError');
+            fetching = this.props.groupsList.get(fetching_type(LOAD_GROUPS)),
+            error = this.props.groupsList.get(error_type(LOAD_GROUPS));
 
         return (
             <>
-                <h3>Группы пользователей</h3>
+                <h3>{this.props.t('view.users_groups')} <PageLink page="create_group" class_name="btn btn-outline-primary">{this.props.t('view.create')}</PageLink></h3>
                 <br/>
                 {
                     fetching || error ?
@@ -43,14 +46,28 @@ class Groups extends React.Component {
 
                                         groups.map((group, key) => {
 
-                                            const permissions = group.get('permissions'),
+                                            const permissions = group.getIn(['parent', 'id']) ? group.getIn(['parent', 'permissions']).merge(group.get('permissions')) : group.get('permissions'),
                                                 users = group.get('users');
 
                                             return (
                                                 <tr key={key}>
                                                     <th scope="row">{group.get('id')}</th>
-                                                    <td>{group.getIn(['parent', 'name']) || '-'}</td>
-                                                    <td>{group.get('name')}</td>
+                                                    <td>
+                                                        {
+                                                            group.getIn(['parent', 'id'])
+                                                                ?
+                                                                <PageLink page="edit_group" id={group.getIn(['parent', 'id'])}>
+                                                                    {group.getIn(['parent', 'name'])}
+                                                                </PageLink>
+                                                                :
+                                                                '-'
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        <PageLink page="edit_group" id={group.get('id')}>
+                                                            {group.get('name')}
+                                                        </PageLink>
+                                                    </td>
                                                     <td>{group.get('description')}</td>
                                                     <td>
                                                         {
@@ -58,8 +75,9 @@ class Groups extends React.Component {
                                                                 users.map((user, key) => {
                                                                     return (
                                                                         <div key={key}>
-                                                                            {/*todo link*/}
-                                                                            <a href="#">ID{user.get('id')} {user.get('login')}</a>
+                                                                            <PageLink page="edit_user" id={user.get('id')}>
+                                                                                ID{user.get('id')} {user.get('login')}
+                                                                            </PageLink>
                                                                             <br/>
                                                                         </div>
                                                                     )
@@ -72,9 +90,10 @@ class Groups extends React.Component {
                                                             permissions && permissions.size > 0 ?
                                                                 permissions.map((permission, key) => {
                                                                     return (
-                                                                        //todo link
                                                                         <div key={key}>
-                                                                            <a href="#">ID{permission.get('id')} {permission.get('name')}</a>
+                                                                            <PageLink page="edit_permission" id={permission.get('id')}>
+                                                                                ID{permission.get('id')} {permission.get('name')}
+                                                                            </PageLink>
                                                                             <br/>
                                                                         </div>
                                                                     )

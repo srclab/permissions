@@ -1,6 +1,6 @@
 import Immutable from "immutable";
 import {LOAD_USERS} from "../../constants/actionTypes";
-import {fail_type, request_type, response_type} from "../../constants/apiConstants";
+import {queryHandler} from "./helpers";
 
 /**
  * Начальная инициализация App State
@@ -22,14 +22,21 @@ export const usersList = (state = immutableState, action) => {
         action.main_type = action.type;
     }
 
-    switch (action.main_type) {
+    /**
+     * Действия с запросами.
+     */
+    return queryHandler(state, action, (state, action) => {
 
-        case LOAD_USERS:
-            return loadUsersListHandler(state, action);
+        switch (action.main_type) {
 
-        default:
-            return state;
-    }
+            case LOAD_USERS:
+                return loadUsersListHandler(state, action);
+
+            default:
+                return state;
+        }
+
+    });
 
 };
 
@@ -41,22 +48,6 @@ export const usersList = (state = immutableState, action) => {
  * @returns {*}
  */
 function loadUsersListHandler(state, action) {
-
-    switch (action.type) {
-        case request_type(action.main_type):
-            return state.set("fetching", true)
-                .delete("loadUsersListError")
-                .delete("loadUsersListValidation");
-        case response_type(action.main_type):
-            return state.delete("fetching")
-                .set("users", Immutable.fromJS(action.response.users));
-        case fail_type(action.main_type):
-            return state.delete("fetching")
-                .set("loadUsersListError", Immutable.fromJS(action.error))
-                .set("loadUsersListValidation", Immutable.fromJS(action.validation));
-        default:
-            return state;
-    }
-
+    return state.set("users", Immutable.fromJS(action.response.users));
 }
 

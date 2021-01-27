@@ -1,8 +1,8 @@
 import Immutable from "immutable";
-import {CHANGE_PAGE, CLEAR_SEARCH} from "../../constants/actionTypes";
+import {CHANGE_PAGE, CLEAR_PAGE} from "../../constants/actionTypes";
 
 /**
- * Начальная инициализация App State
+ * Init App State
  *
  * @type {Immutable.Map}
  */
@@ -26,8 +26,8 @@ export const app = (state = immutableState, action) => {
         case CHANGE_PAGE:
             return changePageHandler(state, action);
 
-        case CLEAR_SEARCH:
-            return clearSearchHandler(state, action);
+        case CLEAR_PAGE:
+            return clearPageHandler(state, action);
 
         default:
             return state;
@@ -36,25 +36,27 @@ export const app = (state = immutableState, action) => {
 };
 
 /**
- * Обработчик смены страницы.
+ * Change page handler.
  *
- * @param state
+ * @param {Immutable.Map} state
  * @param action
  * @returns {*}
  */
 function changePageHandler(state, action) {
     return state.set('page', action.payload.page)
-        .set('search', action.payload.search);
+        .set('search', action.payload.search)
+        .set('id', action.payload.id);
 }
 
 /**
- * Обработчик очистки строки поиска.
+ * Clear page handler.
  *
  * @param state
  * @param action
  * @returns {*}
  */
-function clearSearchHandler(state, action) {
-    return state.delete('search');
+function clearPageHandler(state, action) {
+    return state.delete('search')
+        .delete('id');
 }
 

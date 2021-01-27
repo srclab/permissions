@@ -2,65 +2,80 @@ import React from 'react';
 import {withTranslation} from 'react-i18next'
 import { connect } from 'react-redux'
 import {bindActionCreators} from "redux";
-import {createPermission, loadPermissions} from "../../redux/actions";
-import TextInput from "../Form/TextInput";
-import LoadIndicator from "../Request/LoadIndicator";
-import PageLink from "../Common/PageLink";
+import {createPermission, loadPermissionsUiGroups, nodeClear} from "../../redux/actions";
+import Select from 'react-select'
+import {getSelectOptions} from "../../helpers/select";
+import {withMutationHandler} from "../Common/HOC/withMutationHandler";
+import PreloaderButton from "../Common/PreloaderButton";
+import {CREATE_PERMISSION} from "../../constants/actionTypes";
+import OperationStatus from "../Common/OperationStatus";
+import {serializeForm} from "../../helpers/serialize";
 
-class Permissions extends React.Component {
+class CreatePermission extends React.Component {
+
 
     constructor(props) {
 
         super(props);
 
-        this.state = {
-            name: '',
-            description: '',
-            ui_group: '', //todo
-        }
+        this.form = React.createRef();
 
         this.send = this.send.bind(this);
 
     }
 
-    send() {
-        this.props.permissionsListActions.createPermission(this.state);
+    componentDidMount() {
+        this.props.permissionsListActions.loadPermissionsUiGroups();
     }
 
     /**
-     * Изменение строки поиска.
-     *
-     * @param new_search
+     * Отправка формы.
      */
-    searchChanged(new_search) {
-        this.setState({search: new_search});
-        this.props.permissionsListActions.loadPermissions(new_search);
+    send(event) {
+        event.preventDefault();
+        this.props.permissionsListActions.createPermission(serializeForm(this.form.current));
     }
 
     render() {
+
+        const ui_groups_select_options = getSelectOptions(this.props.permissionsList.get('permissions_ui_groups'));
+
         return (
-            <form onSubmit={this.send}>
+            <form onSubmit={this.send} ref={this.form}>
                 <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Email address</label>
-                    <input type="email" className="form-control" id="exampleInputEmail1"
-                           aria-describedby="emailHelp" placeholder="Enter email" />
-                        <small id="emailHelp" className="form-text text-muted">We'll never share your email with
-                            anyone else.</small>
+                    <label>{this.props.t('view.name')}</label>
+                    <input type="text" name="name" className="form-control" />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleInputPassword1">Password</label>
-                    <input type="password" className="form-control" id="exampleInputPassword1"
-                           placeholder="Password" />
+                    <label>{this.props.t('view.description')}</label>
+                    <input type="text" name="description" className="form-control" />
                 </div>
-                <div className="form-check">
-                    <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                        <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
+                <div className="form-group">
+                    <label htmlFor="exampleFormControlSelect1">{this.props.t('view.ui_group')}</label>
+                    <Select
+                        name="ui_group"
+                        options={ui_groups_select_options}
+                        classNamePrefix="react-select"
+                        placeholder={this.props.t('view.select_ui_group')}
+                    />
                 </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
+                {
+                    !this.props.operation_status || this.props.operation_status.status !== "success"
+                        ? <PreloaderButton type="submit" className="btn btn-primary" is_loading={this.props.forwarding}>{this.props.t('view.create')}</PreloaderButton>
+                        : ''
+                }
+                <OperationStatus {...this.props} />
             </form>
         );
     }
 }
+
+const CreatePermissionWithMutationHandler = withMutationHandler(
+    CreatePermission,
+    "permissionsList",
+    CREATE_PERMISSION,
+    nodeClear
+);
 
 function mapStateToProps(state) {
     return {
@@ -71,9 +86,11 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         permissionsListActions: bindActionCreators({
-            createPermission
+            createPermission,
+            loadPermissionsUiGroups,
+            nodeClear
         }, dispatch),
     }
 }
 
-export default withTranslation('general')(connect(mapStateToProps, mapDispatchToProps)(Permissions));
+export default withTranslation('general')(connect(mapStateToProps, mapDispatchToProps)(CreatePermissionWithMutationHandler));

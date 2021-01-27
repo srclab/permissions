@@ -22,6 +22,29 @@ export const response_type = type => `${type}_RESPONSE`;
  */
 export const fail_type = type => `${type}_FAIL`;
 
+/**
+ * Получение полного action type выполнения запроса.
+ *
+ * @param {string} type
+ * @return {string}
+ */
+export const fetching_type = type => `${type}_FETCHING`;
+
+/**
+ * Получение полного action type выполнения запроса.
+ *
+ * @param {string} type
+ * @return {string}
+ */
+export const error_type = type => `${type}_ERROR`;
+
+/**
+ * Получение полного action type выполнения запроса.
+ *
+ * @param {string} type
+ * @return {string}
+ */
+export const validation_type = type => `${type}_VALIDATION`;
 
 /**
  * Получение url точки входа АПИ

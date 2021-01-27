@@ -3,7 +3,7 @@
 if (!function_exists('app_config')) {
 
     /**
-     * Получение данных из файла конфигурации в зависимости от текущей страны.
+     * Get config data with country.
      *
      * @param array|string $key
      * @param mixed $default
@@ -18,5 +18,28 @@ if (!function_exists('app_config')) {
         }
 
         return config("{$country_code}.{$key}", config($key, $default));
+    }
+}
+
+if (!function_exists('get_custom_array_from_request')) {
+
+    /**
+     * Get custom array from request.
+     *
+     * @param array $data
+     * @param string $field
+     * @return mixed
+     */
+    function get_custom_array_from_request(array $data, $field)
+    {
+       $result = [];
+
+        foreach ($data as $key => $value) {
+            if(preg_match("/^(?:{$field})\[\d+\]$/i", $key)) {
+                $result[] = $value;
+            }
+       }
+
+       return $result;
     }
 }

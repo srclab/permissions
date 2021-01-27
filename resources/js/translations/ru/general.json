@@ -16,6 +16,16 @@
     "permissions_one": "Права",
     "user": "Пользователь",
     "loading": "Выполняется запрос...",
-    "create": "Создать"
+    "create": "Создать",
+    "update": "Изменить",
+    "delete": "Удалить",
+    "ui_group": "UI группа",
+    "select_ui_group": "Выберите UI группу",
+    "change_permission": "Изменение разрешения",
+    "change_group": "Изменение группы",
+    "group_permissions": "Права доступа группы",
+    "select_parent_group": "Выберите родительскую группу",
+    "cant_edit_parent_permissions": "права родительских групп, изменение запрещено",
+    "users_groups": "Группы пользователей"
   }
 }

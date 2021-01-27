@@ -24,13 +24,14 @@ abstract class Repository
     /**
      * Получить записи по первичному ключу.
      *
-     * @param  mixed $id
-     * @param  array $columns
+     * @param mixed $id
+     * @param array $columns
+     * @param array $with
      * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Collection|static|null
      */
-    public function find($id, $columns = ['*'])
+    public function find($id, $columns = ['*'], $with = [])
     {
-        return $this->query()->find($id, $columns);
+        return $this->query()->with($with)->find($id, $columns);
     }
 
     /**

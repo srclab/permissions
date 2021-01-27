@@ -2,6 +2,8 @@
 
 namespace SrcLab\Permissions\Repositories;
 
+use SrcLab\Permissions\Models\User as UserModel;
+
 class User extends Repository
 {
     /**
@@ -9,7 +11,7 @@ class User extends Repository
      *
      * @var \Illuminate\Database\Eloquent\Model
      */
-    protected $model = \SrcLab\Permissions\Models\User::class;
+    protected $model = UserModel::class;
 
     /**
      * Получение списка пользователей.
@@ -38,6 +40,19 @@ class User extends Repository
         }
 
         return $builder->get(['id', 'login', \SrcLab\Permissions\Models\User::getUserGroupField()]);
+    }
+
+    /**
+     * Изменение группы пользователей.
+     *
+     * @param int $from
+     * @param int $to
+     */
+    public function changeUsersGroup($from, $to)
+    {
+        $this->query()
+            ->where(UserModel::getUserGroupField(), $from)
+            ->update([UserModel::getUserGroupField() => $to]);
     }
 
 }

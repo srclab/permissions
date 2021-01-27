@@ -68,6 +68,16 @@ class UserGroup extends Model
     }
 
     /**
+     * Получение списка групп, запрещенных к изменению.
+     *
+     * @return array
+     */
+    public static function getParentBlockedGroups()
+    {
+        return app_config('permissions.blocked_parent_group_ids', []);
+    }
+
+    /**
      * Получение списка прав группы.
      *
      * @return array

@@ -2,10 +2,12 @@ import React from 'react';
 import {withTranslation} from 'react-i18next'
 import { connect } from 'react-redux'
 import {bindActionCreators} from "redux";
-import {clearSearch, loadUsers} from "../../redux/actions";
-import TextInput from "../Form/TextInput";
-import LoadIndicator from "../Request/LoadIndicator";
+import {clearPage, loadUsers} from "../../redux/actions";
+import Search from "../Form/Search";
+import LoadIndicator from "../Common/LoadIndicator";
 import PageLink from "../Common/PageLink";
+import {error_type, fetching_type} from "../../constants/apiConstants";
+import {LOAD_USERS} from "../../constants/actionTypes";
 
 class Users extends React.Component {
 
@@ -40,14 +42,14 @@ class Users extends React.Component {
     render() {
 
         const users = this.props.usersList.get('users'),
-            fetching = this.props.usersList.get('fetching'),
-            error = this.props.usersList.get('loadUsersListError');
+            fetching = this.props.usersList.get(fetching_type(LOAD_USERS)),
+            error = this.props.usersList.get(error_type(LOAD_USERS));
 
         return (
             <>
                 <h3>{this.props.t('view.users')}</h3>
                 <br/>
-                <TextInput value={this.state.search} onChangeValue={this.searchChanged} placeholder={this.props.t('view.search')} buttonText={this.props.t('view.search_go')} />
+                <Search value={this.state.search} onChangeValue={this.searchChanged} placeholder={this.props.t('view.search')} buttonText={this.props.t('view.search_go')} />
                 <br/>
                 {
                     fetching || error ?
@@ -120,7 +122,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         appActions: bindActionCreators({
-            clearSearch
+            clearSearch: clearPage
         }, dispatch),
         usersListActions: bindActionCreators({
             loadUsers

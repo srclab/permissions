@@ -3,6 +3,7 @@
 namespace SrcLab\Permissions;
 
 use SrcLab\Permissions\Contracts\WithPermissions;
+use SrcLab\Permissions\Models\Permission;
 use SrcLab\Permissions\Support\Response;
 
 class Permissions
@@ -85,7 +86,7 @@ class Permissions
      * Получение списка прав.
      *
      * @param array $filter
-     * @return mixed
+     * @return array
      */
     public function getPermissions(array $filter = [])
     {
@@ -94,6 +95,77 @@ class Permissions
         return Response::success(null, [
             'permissions' => $permissions
         ]);
+    }
+
+    /**
+     * Get permission.
+     *
+     * @param int $id
+     * @return array
+     */
+    public function getPermission($id)
+    {
+        $permission = app(\SrcLab\Permissions\Repositories\Permission::class)->find($id);
+
+        if(empty($permission)) {
+            return Response::error(__('permissions::general.server.model_not_found'));
+        }
+
+        return Response::success(null, [
+            'permission' => $permission
+        ]);
+    }
+
+    /**
+     * Create permission.
+     *
+     * @param array $data
+     * @return array
+     */
+    public function create(array $data)
+    {
+        Permission::create($data);
+
+        return Response::success();
+    }
+
+    /**
+     * Update permission.
+     *
+     * @param int $id
+     * @param array $data
+     * @return array
+     */
+    public function update($id, array $data)
+    {
+        $permission = Permission::find($id);
+
+        if(empty($permission)) {
+            return Response::error(__('permissions::general.server.model_not_found'));
+        }
+
+        $permission->update($data);
+
+        return Response::success();
+    }
+
+    /**
+     * Delete permission.
+     *
+     * @param int $id
+     * @return array
+     */
+    public function delete($id)
+    {
+        $permission = Permission::find($id);
+
+        if(empty($permission)) {
+            return Response::error(__('permissions::general.server.model_not_found'));
+        }
+
+        $permission->delete();
+
+        return Response::success();
     }
 
 }

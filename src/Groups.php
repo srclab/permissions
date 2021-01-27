@@ -24,7 +24,34 @@ class Groups
     }
 
     /**
-     * Получение списка групп.
+     * Get group.
+     *
+     * @param int $id
+     * @return array
+     */
+    public function getGroup($id)
+    {
+        /** @var \SrcLab\Permissions\Models\UserGroup $group */
+        $group = $this->group_repository->find($id);
+
+        if(empty($group)) {
+            return Response::error(__('permissions::general.server.model_not_found'));
+        }
+
+        /**
+         * Get group permissions.
+         */
+        $group_data = $group->getAttributes();
+        $group_data['permissions'] = $group->getPermissions();
+        $group_data['parent_permissions'] = !empty($group->parent) ? $group->parent->getPermissions() : [];
+
+        return Response::success(null, [
+            'group' => $group_data
+        ]);
+    }
+
+    /**
+     * Get groups list.
      *
      * @return array
      */
@@ -38,7 +65,7 @@ class Groups
     }
 
     /**
-     * Создание новой группы.
+     * Create group.
      *
      * @param array $data
      * @return array
@@ -53,7 +80,7 @@ class Groups
     }
 
     /**
-     * Изменение группы.
+     * Update group.
      *
      * @param int $id
      * @param array $data
@@ -71,7 +98,7 @@ class Groups
         /**
          * Обновление прав с исключением из списка прав родительских групп.
          */
-        $permissions = array_diff($data['permissions'] ?? [], $group->parent->getPermissions());
+        $permissions = array_diff(get_custom_array_from_request($data, 'permissions'), $group->parent->getPermissions());
 
         app(\Srclab\Permissions\Repositories\UserGroupPermission::class)->updateGroupPermissions($id, $permissions);
 
@@ -91,7 +118,7 @@ class Groups
     }
 
     /**
-     * Удаление группы.
+     * Destroy group.
      *
      * @param int $id
      * @return array
@@ -124,7 +151,7 @@ class Groups
             /**
              * Смена группы пользователей.
              */
-            app(\Srclab\Permissions\Repositories\User::class)->changeUsersGroup($id, 3);
+            app(\SrcLab\Permissions\Repositories\User::class)->changeUsersGroup($id, 3);
 
             /**
              * Удаление связи прав группы.
