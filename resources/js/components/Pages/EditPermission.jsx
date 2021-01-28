@@ -74,10 +74,10 @@ class EditPermission extends React.Component {
                         </div>
                         <div className="form-group">
                             <label>{this.props.t('view.description')}</label>
-                            <input type="text" name="description" defaultValue={this.props.permissionsList.getIn(['permission', 'description'])} className="form-control" onChange={event => this.setState({description: event.target.value})} />
+                            <input type="text" name="description" defaultValue={this.props.permissionsList.getIn(['permission', 'description'])} className="form-control" />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="exampleFormControlSelect1">{this.props.t('view.ui_group')}</label>
+                            <label>{this.props.t('view.ui_group')}</label>
                             <Select
                                 name="ui_group"
                                 defaultValue={getSelectedValue(this.props.permissionsList.getIn(['permission', 'ui_group']), ui_groups_select_options)}

@@ -1,5 +1,5 @@
 import Immutable from "immutable";
-import {LOAD_USERS} from "../../constants/actionTypes";
+import {LOAD_USER, LOAD_USERS, UPDATE_USER} from "../../constants/actionTypes";
 import {queryHandler} from "./helpers";
 
 /**
@@ -29,8 +29,14 @@ export const usersList = (state = immutableState, action) => {
 
         switch (action.main_type) {
 
+            case LOAD_USER:
+                return loadUserHandler(state, action);
+
             case LOAD_USERS:
                 return loadUsersListHandler(state, action);
+
+            case UPDATE_USER:
+                return updateUserHandler(state, action);
 
             default:
                 return state;
@@ -51,3 +57,24 @@ function loadUsersListHandler(state, action) {
     return state.set("users", Immutable.fromJS(action.response.users));
 }
 
+/**
+ * Load user handler.
+ *
+ * @param state
+ * @param action
+ * @returns {*}
+ */
+function loadUserHandler(state, action) {
+    return state.set('user', Immutable.fromJS(action.response.user));
+}
+
+/**
+ * Update user handler.
+ *
+ * @param {Immutable.Map} state
+ * @param {Object} action
+ * @return {Immutable.Map}
+ */
+function updateUserHandler(state, action) {
+    return state.set(action.main_type, Immutable.fromJS({operation_status: action.response.operation_status}));
+}

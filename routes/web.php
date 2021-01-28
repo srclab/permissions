@@ -14,8 +14,4 @@ Route::resource('permissions', 'PermissionController')->except(['create', 'edit'
 Route::get('/groups/parent_groups', [GroupController::class, 'parent_groups'])->name('permissions.parent_groups');
 Route::resource('groups', 'GroupController')->except(['create', 'edit']);
 
-Route::prefix('users')->name('users.')->group(function () {
-    Route::get('/', [UserController::class, 'index'])->name('index');
-    Route::get('/{id}', [UserController::class, 'edit'])->name('edit');
-    Route::post('/{id}', [UserController::class, 'update'])->name('update');
-});
+Route::resource('users', 'UserController')->except(['create', 'edit', 'store', 'destroy']);

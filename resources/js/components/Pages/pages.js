@@ -6,6 +6,7 @@ import CreatePermission from "./CreatePermission";
 import EditPermission from "./EditPermission";
 import EditGroup from "./EditGroup";
 import CreateGroup from "./CreateGroup";
+import EditUser from "./EditUser";
 
 export default {
     users: <Users />,
@@ -15,4 +16,5 @@ export default {
     create_group: <CreateGroup />,
     edit_permission: <EditPermission />,
     edit_group: <EditGroup />,
+    edit_user: <EditUser />,
 }

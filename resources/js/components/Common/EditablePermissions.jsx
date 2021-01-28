@@ -17,7 +17,8 @@ export default class EditablePermissions extends React.Component {
             grouped_permissions.forEach((permission) => {
 
                 let is_parent_permission = this.props.selected_parent_permissions.find(parent_permission => parent_permission === permission.get('id')),
-                    is_checked = this.props.selected_permissions.find(selected_permission_id => selected_permission_id === permission.get('id'));
+                    is_checked = this.props.selected_parent_permissions.find(parent_permission => parent_permission === permission.get('id'))
+                        || this.props.selected_permissions.find(selected_permission_id => selected_permission_id === permission.get('id'));
 
                 checkboxes.push(
                     <div key={permission.get('id')} className="ui-group-permission col-4">

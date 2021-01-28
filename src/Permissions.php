@@ -17,7 +17,6 @@ class Permissions
      */
     public function checkAdditionRule($id, $rule_name)
     {
-        //todo перенести дополнительные правила в конфиг разрешений
         return in_array($id, app_config('permissions.additions.'.$rule_name, []));
     }
 
@@ -61,23 +60,6 @@ class Permissions
         if(in_array($need_permission_id, $user->getPermissions())) {
             return true;
         }
-
-        /** todo вынести на все сдал как расширение пакета
-         * Проверка в разрешениях конкретного менеджера.
-         */
-        //if ($user->getGroupId() == 6) {
-        //
-        //    $managers_permissions = app_config('app_permissions.manager_permissions', []);
-        //
-        //    /* @var \App\Contracts\ManagerControl\ManagerControl $manager_control */
-        //    $manager_control = app('app.manager_control');
-        //    $manager_id = $manager_control->getCurrentManagerId();
-        //
-        //    if(!empty($managers_permissions[$manager_id]) && in_array($need_permission_id, $managers_permissions[$manager_id])) {
-        //        return true;
-        //    }
-        //
-        //}
 
         return false;
     }

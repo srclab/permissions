@@ -76,8 +76,13 @@ class Users extends React.Component {
                                                 <tr key={key}>
                                                     <th scope="row">{user.get('id')}</th>
                                                     <td scope="row">
-                                                        <a href="#">{user.get('login')}</a><br/>
-                                                        #{user.getIn(['group', 'id'])} {user.getIn(['group', 'name'])}
+                                                        <PageLink page="edit_user" id={user.get('id')}>
+                                                            {user.get('login')}
+                                                        </PageLink>
+                                                        <br/>
+                                                        <PageLink page="edit_group" id={user.getIn(['group', 'id'])}>
+                                                            ID{user.getIn(['group', 'id'])} {user.getIn(['group', 'name'])}
+                                                        </PageLink>
                                                     </td>
                                                     <td>
                                                         {
@@ -85,8 +90,8 @@ class Users extends React.Component {
                                                                 permissions.map((permission, key) => {
                                                                     return (
                                                                         <div key={key}>
-                                                                            <PageLink page="permissions" search={permission.get('id')}>
-                                                                                ID{permission.get('id')} {permission.get('name')}
+                                                                            <PageLink page="edit_permission" id={permission.get('id')}>
+                                                                                ID{permission.get('id')} {permission.get('description')}
                                                                             </PageLink>
                                                                             <br/>
                                                                         </div>

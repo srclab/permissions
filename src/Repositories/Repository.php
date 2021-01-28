@@ -45,4 +45,17 @@ abstract class Repository
         return $this->query()->get($columns);
     }
 
+    /**
+     * Get where in.
+     *
+     * @param string $column
+     * @param mixed $values
+     * @param array|string[] $columns
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getWhereIn($column, $values, array $columns = ['*'])
+    {
+        return $this->query()->whereIn($column, $values)->get($columns);
+    }
+
 }

@@ -8,7 +8,7 @@ use SrcLab\Permissions\Support\Response;
 class Users
 {
     /**
-     * @var UserRepository
+     * @var \SrcLab\Permissions\Repositories\User
      */
     public $user_repository;
 
@@ -32,7 +32,47 @@ class Users
     {
         $users = $this->user_repository->getUsersList($filter);
 
-        return Response::success(null, compact('users'));
+        /**
+         * Получение прав.
+         * @var \SrcLab\Permissions\Models\User $user
+         */
+        $users_data = [];
+
+        foreach ($users as $key => $user) {
+            $users_data[$key] = $user->toArray();
+            $users_data[$key]['permissions'] = app(\SrcLab\Permissions\Repositories\Permission::class)->getWhereIn('id', $user->getPermissions(true), ['id', 'name', 'description']);
+        }
+
+        return Response::success(null, [
+            'users' => $users_data,
+        ]);
+    }
+
+    /**
+     * Get user.
+     *
+     * @param int $id
+     * @return array
+     */
+    public function getUser($id)
+    {
+        /** @var \SrcLab\Permissions\Models\User $user */
+        $user = $this->user_repository->find($id);
+
+        if(empty($user)) {
+            return Response::error(__('permissions::general.server.model_not_found'));
+        }
+
+        /**
+         * Get user permissions.
+         */
+        $user_data = $user->only(['id', 'login', 'group_id']);
+        $user_data['permissions'] = $user->getPermissions();
+        $user_data['group_permissions'] = $user->group->getPermissions();
+
+        return Response::success(null, [
+            'user' => $user_data
+        ]);
     }
 
     /**
@@ -48,13 +88,13 @@ class Users
         $user = app(\SrcLab\Permissions\Repositories\User::class)->find($id);
 
         if(empty($user)) {
-            return Response::error('Пользователь не найден.');
+            return Response::error(__('permissions::general.server.model_not_found'));
         }
 
         /**
          * Обновление прав с исключением из списка прав группы.
          */
-        $permissions = array_diff($data['permissions'] ?? [], $user->group->getPermissions());
+        $permissions = array_diff(get_custom_array_from_request($data, 'permissions'), $user->group->getPermissions());
 
         app(\SrcLab\Permissions\Repositories\UserPermission::class)->updateUserPermissions($id, $permissions);
 

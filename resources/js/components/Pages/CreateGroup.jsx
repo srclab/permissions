@@ -44,7 +44,7 @@ class CreateGroup extends React.Component {
         return (
             <form onSubmit={this.send} ref={this.form}>
                 <div className="form-group">
-                    <label htmlFor="exampleFormControlSelect1">{this.props.t('view.parent_group')}</label>
+                    <label>{this.props.t('view.parent_group')}</label>
                     <Select
                         name="parent_id"
                         defaultValue={getSelectedValue(this.props.groupsList.getIn(['group', 'parent_id'], 0), parent_groups_select_options)}
@@ -59,7 +59,7 @@ class CreateGroup extends React.Component {
                 </div>
                 <div className="form-group">
                     <label>{this.props.t('view.description')}</label>
-                    <input type="text" name="description" defaultValue={this.props.groupsList.getIn(['group', 'description'])} className="form-control" onChange={event => this.setState({description: event.target.value})} />
+                    <input type="text" name="description" defaultValue={this.props.groupsList.getIn(['group', 'description'])} className="form-control" />
                 </div>
                 {
                     !this.props.operation_status || this.props.operation_status.status !== "success"

@@ -41,12 +41,12 @@ class UserPermission extends Repository
     }
 
     /**
-     * Получение списка прав пользователя.
+     * Получение списка id прав пользователя.
      *
      * @param int $user_id
      * @return array
      */
-    public function getUserPermissions($user_id)
+    public function getUserPermissionsIds($user_id)
     {
         /* @var \Illuminate\Contracts\Cache\Repository $cache */
         $cache = app('cache');

@@ -51,7 +51,7 @@ class CreatePermission extends React.Component {
                     <input type="text" name="description" className="form-control" />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleFormControlSelect1">{this.props.t('view.ui_group')}</label>
+                    <label>{this.props.t('view.ui_group')}</label>
                     <Select
                         name="ui_group"
                         options={ui_groups_select_options}

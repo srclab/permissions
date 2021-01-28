@@ -34,17 +34,14 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Get user.
      *
-     * @param  int  $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function edit($id)
+    public function show($id)
     {
-        return view('admin.permission.users.edit', [
-            'user' => $this->base->user_repository->get($id),
-            'groups' => app(\App\Repositories\UserGroup::class)->getAll(['id', 'name'])->pluck('name', 'id')->toArray()
-        ]);
+        return $this->returnJsonResult($this->base->getUser($id));
     }
 
     /**
@@ -52,23 +49,18 @@ class UserController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\JsonResponse
      * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request, $id)
     {
         $this->validate($request, [
             'group_id' => 'required|int',
-            'permissions' => 'array|nullable',
         ]);
 
         $result = $this->base->editUser($id, $request->all());
 
-        return $this->returnResult($result, function () {
-            return [
-                'route' => 'admin.permissions.users.index',
-            ];
-        });
+        return $this->returnJsonResult($result);
     }
 
 }

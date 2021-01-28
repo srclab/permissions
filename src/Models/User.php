@@ -59,4 +59,24 @@ class User extends Model
         return app_config('permissions.tables.relations.user_group_field');
     }
 
+    /**
+     * Получение списка прав доступа пользователя.
+     *
+     * @param bool $full
+     * @return array
+     */
+    public function getPermissions($full = false)
+    {
+        $permissions = app(\SrcLab\Permissions\Repositories\UserPermission::class)->getUserPermissionsIds($this->id);
+
+        /**
+         * Вместе с правами группы.
+         */
+        if($full) {
+            $permissions = array_unique(array_merge($permissions, $this->group->getPermissions()));
+        }
+
+        return \Arr::sort($permissions);
+    }
+
 }

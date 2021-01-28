@@ -100,7 +100,7 @@ class Permissions extends React.Component {
                                                                 users.map((user, key) => {
                                                                     return (
                                                                         <div key={key}>
-                                                                            <PageLink page="users" search={user.get('id')}>
+                                                                            <PageLink page="edit_user" id={user.get('id')}>
                                                                                 ID{user.get('id')} {user.get('login')}
                                                                             </PageLink>
                                                                             <br/>

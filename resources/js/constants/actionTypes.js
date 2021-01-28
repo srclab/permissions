@@ -90,6 +90,20 @@ export const DELETE_GROUP = 'DELETE_GROUP';
 export const LOAD_USERS = 'LOAD_USERS';
 
 /**
+ * Load user model.
+ *
+ * @type {string}
+ */
+export const LOAD_USER = 'LOAD_USER';
+
+/**
+ * Change user.
+ *
+ * @type {string}
+ */
+export const UPDATE_USER = 'UPDATE_USER';
+
+/**
  * Change page.
  *
  * @type {string}

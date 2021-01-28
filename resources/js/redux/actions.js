@@ -3,8 +3,8 @@ import {
     CLEAR_PAGE, CREATE_GROUP,
     CREATE_PERMISSION, DELETE_GROUP, DELETE_PERMISSION, LOAD_GROUP,
     LOAD_GROUPS, LOAD_PARENT_GROUPS, LOAD_PERMISSION,
-    LOAD_PERMISSIONS, LOAD_PERMISSIONS_UI_GROUPS,
-    LOAD_USERS, NODE_CLEAR, UPDATE_GROUP, UPDATE_PERMISSION
+    LOAD_PERMISSIONS, LOAD_PERMISSIONS_UI_GROUPS, LOAD_USER,
+    LOAD_USERS, NODE_CLEAR, UPDATE_GROUP, UPDATE_PERMISSION, UPDATE_USER
 } from '../constants/actionTypes'
 import {GET_API_URL} from "../constants/apiConstants";
 import {
@@ -205,6 +205,33 @@ export const loadUsers = (search) => ({
     request: {
         search: search
     }
+});
+
+/**
+ * Load user model.
+ *
+ * @param id
+ */
+export const loadUser = (id) => ({
+    type: LOAD_USER,
+    apiCall: true,
+    isRestAPI: {
+        host: GET_API_URL(USERS_ENDPOINT)+'/'+id,
+        method: 'get',
+    },
+});
+
+/**
+ * Update user.
+ */
+export const updateUser = (id, data) => ({
+    type: UPDATE_USER,
+    apiCall: true,
+    isRestAPI: {
+        host: GET_API_URL(USERS_ENDPOINT)+'/'+id,
+        method: 'PUT',
+    },
+    request: data
 });
 
 /**

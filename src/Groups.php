@@ -156,7 +156,7 @@ class Groups
             /**
              * Удаление связи прав группы.
              */
-            app(\Srclab\Permissions\Repositories\UserGroupPermission::class)->deleteGroupPermissions($group->id);
+            app(\SrcLab\Permissions\Repositories\UserGroupPermission::class)->deleteGroupPermissions($group->id);
 
             /**
              * Удаление группы.
