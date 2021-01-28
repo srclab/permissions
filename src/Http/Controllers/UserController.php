@@ -23,7 +23,7 @@ class UserController extends Controller
     }
 
     /**
-     * Список пользователей.
+     * Display a listing of the resource.
      *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse

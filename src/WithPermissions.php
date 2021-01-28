@@ -7,7 +7,7 @@ use SrcLab\Permissions\Models\User;
 trait WithPermissions
 {
     /**
-     * Проверка доступа пользователя по системному имени правила.
+     * Check user access by permission system name.
      *
      * @param null $system_name
      * @return bool
@@ -27,7 +27,7 @@ trait WithPermissions
     }
 
     /**
-     * Проверка доступа пользователя хотя бы по одному из правил массива.
+     * Check user access a least one permission.
      *
      * @param array $system_names
      * @return bool
@@ -55,12 +55,33 @@ trait WithPermissions
     }
 
     /**
-     * Пользователь является супер юзером.
+     * User is super user.
      *
      * @return bool
      */
-    protected function isSuperUser()
+    public function isSuperUser()
     {
         return $this->{User::getUserGroupField()} == app_config('permissions.super_user_group_id');
     }
+
+    /**
+     * Get user permissions list.
+     *
+     * @param bool $full
+     * @return array
+     */
+    public function getPermissions($full = false)
+    {
+        $permissions = app(\SrcLab\Permissions\Repositories\UserPermission::class)->getUserPermissionsIds($this->id);
+
+        /**
+         * With group permissions.
+         */
+        if($full) {
+            $permissions = array_unique(array_merge($permissions, $this->group->getPermissions()));
+        }
+
+        return \Arr::sort($permissions);
+    }
+
 }

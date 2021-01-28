@@ -9,7 +9,7 @@ use SrcLab\Permissions\Support\Response;
 class Permissions
 {
     /**
-     * Проверка дополнительного права.
+     * Check additional rule.
      *
      * @param int $id
      * @param string $rule_name
@@ -21,7 +21,7 @@ class Permissions
     }
 
     /**
-     * Проверка прав доступа.
+     * Check rule.
      *
      * @param WithPermissions $user
      * @param string $system_name
@@ -32,7 +32,7 @@ class Permissions
         $permissions = app_config('app_permissions.permissions');
 
         /**
-         * Получение id требуемого разрешения.
+         * Get permission id.
          */
         $need_permission_id = 0;
 
@@ -48,14 +48,14 @@ class Permissions
         }
 
         /**
-         * Проверка в разрешениях группы.
+         * Check in group permissions.
          */
         if(in_array($need_permission_id, $user->group->getPermissions())) {
             return true;
         }
 
         /**
-         * Проверка в разрешениях пользователя.
+         * Check in user permissions.
          */
         if(in_array($need_permission_id, $user->getPermissions())) {
             return true;
@@ -65,7 +65,7 @@ class Permissions
     }
 
     /**
-     * Получение списка прав.
+     * Get permissions list.
      *
      * @param array $filter
      * @return array

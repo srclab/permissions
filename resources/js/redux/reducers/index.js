@@ -5,7 +5,7 @@ import {groupsList} from './groupsReducer'
 import {usersList} from './usersReducer'
 
 /**
- * Combine reducers
+ * Combine reducers.
  */
 const rootReducer = () => combineReducers({
     app,

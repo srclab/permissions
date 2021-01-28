@@ -5,7 +5,7 @@ namespace SrcLab\Permissions\Support;
 class Response
 {
     /**
-     * Формирование ответа об успешной операции.
+     * Success response.
      *
      * @param string $message
      * @param array $parameters
@@ -27,7 +27,7 @@ class Response
     }
 
     /**
-     * Формирование ответа об ошибке операции.
+     * Error response.
      *
      * @param string $message
      * @param array $parameters

@@ -1,29 +1,29 @@
 /**
- * Получение полного action type запроса
+ * Get full action type query.
  *
  * @param {string} type - action type
- * @return {string} - полный action type запроса
+ * @return {string} - full action type query
  */
 export const request_type = type => `${type}_REQUEST`;
 
 /**
- * Получение полного action type ответа
+ * Get full action type response.
  *
  * @param {string} type - action type
- * @return {string} - полный action type ответа
+ * @return {string} - full action type response
  */
 export const response_type = type => `${type}_RESPONSE`;
 
 /**
- * Получение полного action type ошибки
+ * Get full action type error.
  *
  * @param {string} type - action type
- * @return {string} - полный action type ошибки
+ * @return {string} - full action type error
  */
 export const fail_type = type => `${type}_FAIL`;
 
 /**
- * Получение полного action type выполнения запроса.
+ * Get full action type fetching query.
  *
  * @param {string} type
  * @return {string}
@@ -31,7 +31,7 @@ export const fail_type = type => `${type}_FAIL`;
 export const fetching_type = type => `${type}_FETCHING`;
 
 /**
- * Получение полного action type выполнения запроса.
+ * Get full action type error query.
  *
  * @param {string} type
  * @return {string}
@@ -39,7 +39,7 @@ export const fetching_type = type => `${type}_FETCHING`;
 export const error_type = type => `${type}_ERROR`;
 
 /**
- * Получение полного action type выполнения запроса.
+ * Get full action type validation query.
  *
  * @param {string} type
  * @return {string}
@@ -47,10 +47,10 @@ export const error_type = type => `${type}_ERROR`;
 export const validation_type = type => `${type}_VALIDATION`;
 
 /**
- * Получение url точки входа АПИ
+ * Get url API endpoint.
  *
- * @param {string} endpoint - точка входа
- * @return {string} - url адрес api
+ * @param {string} endpoint
+ * @return {string}
  */
 export const GET_API_URL = (endpoint) => {
     return document.querySelector('meta[name="base-path"]').content + endpoint;

@@ -3,9 +3,12 @@
 namespace SrcLab\Permissions\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use SrcLab\Permissions\Contracts\WithPermissions;
 
-class User extends Model
+class User extends Model implements WithPermissions
 {
+    use \SrcLab\Permissions\WithPermissions;
+
     public $timestamps = false;
 
     /**
@@ -20,7 +23,7 @@ class User extends Model
     }
 
     /**
-     * Группа пользователя.
+     * User group.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -30,7 +33,7 @@ class User extends Model
     }
 
     /**
-     * Получение группы пользователя
+     * Get user group id attribute.
      *
      * @return integer
      */
@@ -40,7 +43,7 @@ class User extends Model
     }
 
     /**
-     * Установка группы пользователя.
+     * Set user group id attribute.
      *
      * @param int $value
      */
@@ -50,33 +53,13 @@ class User extends Model
     }
 
     /**
-     * Получение названия поля группы пользователя.
+     * Get user group field name
      *
      * @return string
      */
     public static function getUserGroupField()
     {
         return app_config('permissions.tables.relations.user_group_field');
-    }
-
-    /**
-     * Получение списка прав доступа пользователя.
-     *
-     * @param bool $full
-     * @return array
-     */
-    public function getPermissions($full = false)
-    {
-        $permissions = app(\SrcLab\Permissions\Repositories\UserPermission::class)->getUserPermissionsIds($this->id);
-
-        /**
-         * Вместе с правами группы.
-         */
-        if($full) {
-            $permissions = array_unique(array_merge($permissions, $this->group->getPermissions()));
-        }
-
-        return \Arr::sort($permissions);
     }
 
 }

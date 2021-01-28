@@ -25,7 +25,7 @@ class UserGroup extends Model
     //****************************************************************
 
     /**
-     * Родительская группа.
+     * Parent group.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -35,7 +35,7 @@ class UserGroup extends Model
     }
 
     /**
-     * Пользователи группы.
+     * Group users.
      *
      */
     public function users()
@@ -44,7 +44,7 @@ class UserGroup extends Model
     }
 
     /**
-     * Права группы.
+     * Group permissions.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -58,7 +58,7 @@ class UserGroup extends Model
     //****************************************************************
 
     /**
-     * Получение списка групп, запрещенных к изменению.
+     * Get groups list that cant edit.
      *
      * @return array
      */
@@ -68,7 +68,7 @@ class UserGroup extends Model
     }
 
     /**
-     * Получение списка групп, запрещенных к изменению.
+     * Get parent groups list that cant edit.
      *
      * @return array
      */
@@ -78,16 +78,16 @@ class UserGroup extends Model
     }
 
     /**
-     * Получение списка прав группы.
+     * Get group permissions list.
      *
      * @return array
      */
     public function getPermissions()
     {
-        $permissions = app(\SrcLab\Permissions\Repositories\UserGroupPermission::class)->getGroupPermissions($this->id);
+        $permissions = app(\SrcLab\Permissions\Repositories\UserGroupPermission::class)->getGroupPermissionsIds($this->id);
 
         /**
-         * Добавление прав родительской группы.
+         * Add parent group permissions.
          */
         if($this->parent_id != 0) {
             $permissions = array_merge($permissions, $this->parent->getPermissions());

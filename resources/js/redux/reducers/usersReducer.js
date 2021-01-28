@@ -3,18 +3,18 @@ import {LOAD_USER, LOAD_USERS, UPDATE_USER} from "../../constants/actionTypes";
 import {queryHandler} from "./helpers";
 
 /**
- * Начальная инициализация App State
+ * Init App State.
  *
  * @type {Immutable.Map}
  */
 const immutableState = Immutable.Map({});
 
 /**
- * UsersReducer
+ * UsersReducer.
  *
- * @param {Immutable.Map} state  - текущий state
- * @param {Object} action - текущий action
- * @return {Immutable.Map} - новый state
+ * @param {Immutable.Map} state
+ * @param {Object} action
+ * @return {Immutable.Map}
  */
 export const usersList = (state = immutableState, action) => {
 
@@ -47,7 +47,7 @@ export const usersList = (state = immutableState, action) => {
 };
 
 /**
- * Обработчик запроса получения списка пользователей.
+ * Load users list handler.
  *
  * @param state
  * @param action

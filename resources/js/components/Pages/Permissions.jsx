@@ -28,7 +28,7 @@ class Permissions extends React.Component {
     }
 
     /**
-     * Изменение строки поиска.
+     * Change search input.
      *
      * @param new_search
      */

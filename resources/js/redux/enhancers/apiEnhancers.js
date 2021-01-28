@@ -6,9 +6,6 @@ import {
     fail_type,
 } from '../../constants/apiConstants'
 
-/**
- * Обработка action на необходимость запроса к АПИ и выполнение этих запросов
- */
 export const apiMiddleware = store => next => action => {
 
     const {apiCall, isRestAPI, request, ...actualAction} = action;

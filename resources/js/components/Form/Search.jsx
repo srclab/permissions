@@ -15,7 +15,7 @@ export default class Search extends React.Component {
     }
 
     /**
-     * Изменение значения поля.
+     * Change field value.
      *
      * @param event
      */

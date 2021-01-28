@@ -1,5 +1,5 @@
 /**
- * Получение массива значений для селекта.
+ * Get select options.
  *
  * @param {Immutable.List} options
  * @return {object[]}
@@ -20,7 +20,7 @@ export function getSelectOptions(options) {
 }
 
 /**
- * Получение выбранного значения для компонента селекта.
+ * Get selected value for select component.
  *
  * @param {string} selected_value
  * @param {object[]} select_options

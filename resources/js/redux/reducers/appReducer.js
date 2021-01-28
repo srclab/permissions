@@ -2,14 +2,14 @@ import Immutable from "immutable";
 import {CHANGE_PAGE, CLEAR_PAGE} from "../../constants/actionTypes";
 
 /**
- * Init App State
+ * Init App State.
  *
  * @type {Immutable.Map}
  */
 const immutableState = Immutable.Map({page: 'permissions'});
 
 /**
- * AppReducer
+ * AppReducer.
  *
  * @param {Immutable.Map} state  - текущий state
  * @param {Object} action - текущий action

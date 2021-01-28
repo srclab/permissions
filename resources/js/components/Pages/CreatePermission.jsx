@@ -29,7 +29,9 @@ class CreatePermission extends React.Component {
     }
 
     /**
-     * Отправка формы.
+     * Send form.
+     *
+     * @param event
      */
     send(event) {
         event.preventDefault();

@@ -5,14 +5,12 @@ namespace SrcLab\Permissions\Repositories;
 abstract class Repository
 {
     /**
-     * Модель.
-     *
      * @var \Illuminate\Database\Eloquent\Model
      */
     protected $model;
 
     /**
-     * Получить Builder объект модели.
+     * Get query.
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
@@ -22,7 +20,7 @@ abstract class Repository
     }
 
     /**
-     * Получить записи по первичному ключу.
+     * Find model by id.
      *
      * @param mixed $id
      * @param array $columns
@@ -35,7 +33,7 @@ abstract class Repository
     }
 
     /**
-     * Получить все записи.
+     * Get all records.
      *
      * @param  array $columns
      * @return \Illuminate\Database\Eloquent\Collection|static[]
@@ -46,7 +44,7 @@ abstract class Repository
     }
 
     /**
-     * Get where in.
+     * Get where in records.
      *
      * @param string $column
      * @param mixed $values

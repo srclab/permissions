@@ -3,7 +3,7 @@ import React from 'react';
 export default class OperationStatus extends React.Component {
 
     /**
-     * Получение строки с ошибками валидации.
+     * Get string with validation errors.
      */
     getValidationsString() {
 

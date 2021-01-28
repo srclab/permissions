@@ -9,14 +9,14 @@ import {
 import {queryHandler} from "./helpers";
 
 /**
- * Init App State
+ * Init App State.
  *
  * @type {Immutable.Map}
  */
 const immutableState = Immutable.Map({});
 
 /**
- * PermissionsReducer
+ * PermissionsReducer.
  *
  * @param {Immutable.Map} state 
  * @param {Object} action

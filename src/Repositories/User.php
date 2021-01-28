@@ -7,14 +7,12 @@ use SrcLab\Permissions\Models\User as UserModel;
 class User extends Repository
 {
     /**
-     * Модель.
-     *
      * @var \Illuminate\Database\Eloquent\Model
      */
     protected $model = UserModel::class;
 
     /**
-     * Получение списка пользователей.
+     * Get users list.
      *
      * @param array $filter
      * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
@@ -24,9 +22,6 @@ class User extends Repository
         $builder = $this->query()
             ->with('group');
 
-        /**
-         * Поиск по всем пользователям.
-         */
         if(!empty($filter['search'])) {
 
             if(is_numeric($filter['search'])) {
@@ -43,7 +38,7 @@ class User extends Repository
     }
 
     /**
-     * Изменение группы пользователей.
+     * Change user group.
      *
      * @param int $from
      * @param int $to

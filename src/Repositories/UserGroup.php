@@ -5,14 +5,12 @@ namespace SrcLab\Permissions\Repositories;
 class UserGroup extends Repository
 {
     /**
-     * Модель.
-     *
      * @var \Illuminate\Database\Eloquent\Model
      */
     protected $model = \SrcLab\Permissions\Models\UserGroup::class;
 
     /**
-     * Проверка наличия нижестоящих групп.
+     * Check exists children groups.
      *
      * @param int $id
      * @return bool
@@ -25,7 +23,7 @@ class UserGroup extends Repository
     }
 
     /**
-     * Получение списка групп.
+     * Get groups list.
      *
      * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      */

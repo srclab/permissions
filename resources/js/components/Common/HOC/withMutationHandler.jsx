@@ -4,12 +4,12 @@ import {bindActionCreators} from 'redux'
 import {error_type, fetching_type, validation_type} from "../../../constants/apiConstants";
 
 /**
- * HOC withMutationHandler - универсальный обработчик мутаций
+ * HOC withMutationHandler - universal mutations handler
  *
- * @param WrappedComponent {function} - компонент
- * @param storeNode {string} - имя redux store
+ * @param WrappedComponent {function}
+ * @param storeNode {string}
  * @param action
- * @param nodeClear {function} - функция очистки результатов
+ * @param nodeClear {function}
  * @return {*}
  */
 export function withMutationHandler(WrappedComponent, storeNode, action, nodeClear) {

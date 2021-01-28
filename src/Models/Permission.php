@@ -20,17 +20,18 @@ class Permission extends Model
     }
 
     /**
-     * Пользователи с установленным правом.
+     * Users list with permission.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function users()
     {
-        return $this->belongsToMany(User::class, app_config('permissions.tables.users_permissions'));
+        return $this->belongsToMany(User::class, app_config('permissions.tables.users_permissions'))
+            ->select(['id', 'login', User::getUserGroupField()]);
     }
 
     /**
-     * Группы с установленным правом.
+     * Groups list with permissions.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */

@@ -12,8 +12,6 @@ class UserGroupPermission extends Repository
     protected $cache;
 
     /**
-     * Модель.
-     *
      * @var \Illuminate\Database\Eloquent\Model
      */
     protected $model = \SrcLab\Permissions\Models\UserGroupPermission::class;
@@ -27,7 +25,7 @@ class UserGroupPermission extends Repository
     }
 
     /**
-     * Получение записей по правам.
+     * Get by permissions.
      *
      * @param array $permissions
      * @param array $with
@@ -42,12 +40,12 @@ class UserGroupPermission extends Repository
     }
 
     /**
-     * Получение списка прав группы.
+     * Get group permissions ids list.
      *
      * @param int $group_id
      * @return array
      */
-    public function getGroupPermissions($group_id)
+    public function getGroupPermissionsIds($group_id)
     {
         return $this->cache->remember("user_group_permissions:{$group_id}", 60 * 60 * 3, function () use ($group_id) {
             return $this->query()
@@ -58,7 +56,7 @@ class UserGroupPermission extends Repository
     }
 
     /**
-     * Получение списка id пользователей по id права.
+     * Get user ids by permission.
      *
      * @param int $permission_id
      * @param array $exclude_groups
@@ -79,7 +77,7 @@ class UserGroupPermission extends Repository
     }
 
     /**
-     * Удаление прав группы.
+     * Delete group premissions.
      *
      * @param int $id
      */
@@ -91,7 +89,7 @@ class UserGroupPermission extends Repository
     }
 
     /**
-     * Обновление прав группы.
+     * Update group premissions.
      *
      * @param int $id
      * @param array $permissions
@@ -106,12 +104,12 @@ class UserGroupPermission extends Repository
         }
 
         /**
-         * Получение текущего списка прав.
+         * Get current permissions list.
          */
         $current_permissions = $base_builder->pluck('permission_id')->toArray();
 
         /**
-         * Удаление прав.
+         * Delete permissions.
          */
         $permissions_for_delete = array_diff($current_permissions, $permissions);
 
@@ -120,7 +118,7 @@ class UserGroupPermission extends Repository
         }
 
         /**
-         * Добавление прав.
+         * Add permission.
          */
         $permissions_for_add = array_diff($permissions, $current_permissions);
 

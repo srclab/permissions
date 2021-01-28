@@ -74,7 +74,7 @@ class Groups
     {
         $group = UserGroup::create($data);
 
-        return Response::success('Группа создана.', [
+        return Response::success(null, [
             'id' => $group->id,
         ]);
     }
@@ -92,29 +92,29 @@ class Groups
         $group = $this->group_repository->find($id);
 
         if(empty($group)) {
-            return Response::error('Группа не найдена.');
+            return Response::error(__('permissions::general.server.model_not_found'));
         }
 
         /**
-         * Обновление прав с исключением из списка прав родительских групп.
+         * Get permissions without parent group permissions.
          */
         $permissions = array_diff(get_custom_array_from_request($data, 'permissions'), $group->parent->getPermissions());
 
         app(\Srclab\Permissions\Repositories\UserGroupPermission::class)->updateGroupPermissions($id, $permissions);
 
         /**
-         * Обновление группы.
+         * Update group.
          */
         $group->update($data);
 
         /**
-         * Очистка кеша.
+         * Clear cache.
          * @var \Illuminate\Contracts\Cache\Repository $cache
          */
         $cache = app('cache');
         $cache->forget("user_group_permissions:{$id}");
 
-        return Response::success('Группа изменена.');
+        return Response::success();
     }
 
     /**
@@ -127,21 +127,21 @@ class Groups
     public function destroyGroup($id)
     {
         if(in_array($id, UserGroup::getBlockedGroups())) {
-            return Response::error('Удаление запрещено.');
+            return Response::error(__('permissions::general.server.cant_update_group'));
         }
 
         /** @var UserGroup $group */
         $group = $this->group_repository->find($id);
 
         if(empty($group)) {
-            return Response::error('Группа не найдена.');
+            return Response::error(__('permissions::general.server.model_not_found'));
         }
 
         /**
          * Проверка существования нижестоящих групп.
          */
         if($this->group_repository->existsChildren($id)) {
-            return Response::error('Удаление невозможно. Группа имеет нижестоящие группы.');
+            return Response::error(__('permissions::general.server.cant_delete_group'));
         }
 
         try {
@@ -170,7 +170,7 @@ class Groups
             throw $e;
         }
 
-        return Response::success('Группа удалена.');
+        return Response::success(null);
     }
 
 }

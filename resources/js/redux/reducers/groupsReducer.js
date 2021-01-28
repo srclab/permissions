@@ -6,14 +6,14 @@ import {
 import {queryHandler} from "./helpers";
 
 /**
- * Начальная инициализация App State
+ * Init App State.
  *
  * @type {Immutable.Map}
  */
 const immutableState = Immutable.Map({});
 
 /**
- * GroupsReducer
+ * GroupsReducer.
  *
  * @param {Immutable.Map} state  - текущий state
  * @param {Object} action - текущий action
@@ -25,9 +25,6 @@ export const groupsList = (state = immutableState, action) => {
         action.main_type = action.type;
     }
 
-    /**
-     * Действия с запросами.
-     */
     return queryHandler(state, action, (state, action) => {
 
         switch (action.main_type) {

@@ -29,7 +29,7 @@ class CreateGroup extends React.Component {
     }
 
     /**
-     * Отправка формы.
+     * Send form.
      */
     send(event) {
         event.preventDefault();

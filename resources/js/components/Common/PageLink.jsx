@@ -15,7 +15,7 @@ class PageLink extends React.Component {
     }
 
     /**
-     * Смена страницы.
+     * Change page.
      */
     changePage() {
         this.props.appActions.changePage(this.props.page, this.props.search, this.props.id);

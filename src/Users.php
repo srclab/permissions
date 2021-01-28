@@ -23,7 +23,7 @@ class Users
     }
 
     /**
-     * Получение списка пользователей.
+     * Get users list.
      *
      * @param array $filter
      * @return array
@@ -33,7 +33,7 @@ class Users
         $users = $this->user_repository->getUsersList($filter);
 
         /**
-         * Получение прав.
+         * Get users permissions.
          * @var \SrcLab\Permissions\Models\User $user
          */
         $users_data = [];
@@ -76,7 +76,7 @@ class Users
     }
 
     /**
-     * Изменение прав и группы пользователя.
+     * Update user permissions and group.
      *
      * @param int $id
      * @param array $data
@@ -92,7 +92,7 @@ class Users
         }
 
         /**
-         * Обновление прав с исключением из списка прав группы.
+         * Get permissions without group permissions.
          */
         $permissions = array_diff(get_custom_array_from_request($data, 'permissions'), $user->group->getPermissions());
 
@@ -107,13 +107,13 @@ class Users
         }
 
         /**
-         * Очистка кеша.
+         * Clear cache.
          * @var \Illuminate\Contracts\Cache\Repository $cache
          */
         $cache = app('cache');
         $cache->forget("user_permissions:{$id}");
 
-        return Response::success('Пользователь изменен.');
+        return Response::success();
     }
 
 }

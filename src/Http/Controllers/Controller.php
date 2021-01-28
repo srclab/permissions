@@ -42,7 +42,7 @@ abstract class Controller extends \Illuminate\Routing\Controller
     }
 
     /**
-     * Return fson format result.
+     * Return json format result.
      *
      * @param array $result
      * @return \Illuminate\Http\JsonResponse

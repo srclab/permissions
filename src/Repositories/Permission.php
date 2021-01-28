@@ -5,14 +5,12 @@ namespace SrcLab\Permissions\Repositories;
 class Permission extends Repository
 {
     /**
-     * Модель.
-     *
      * @var \Illuminate\Database\Eloquent\Model
      */
     protected $model = \SrcLab\Permissions\Models\Permission::class;
 
     /**
-     * Получение списка прав.
+     * Get permissions list.
      *
      * @param array $filter
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection

@@ -18,7 +18,7 @@ class UserPermission extends Model
     }
 
     /**
-     * Пользователь.
+     * User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

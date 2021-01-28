@@ -18,7 +18,7 @@ class UserGroupPermission extends Model
     }
 
     /**
-     * Группа.
+     * Group.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
