@@ -10,23 +10,26 @@
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "devDependencies": {
-    "redux-devtools": "^3.7.0"
-  },
-  "dependencies": {
     "@babel/core": "^7.12.10",
     "@babel/preset-react": "^7.12.10",
+    "browser-sync": "^2.26.13",
+    "browser-sync-webpack-plugin": "2.2.2",
+    "cross-env": "^7.0.3",
+    "laravel-mix": "^6.0.9",
+    "redux-devtools": "^3.7.0",
+    "sass": "^1.32.4",
+    "sass-loader": "8.*",
+    "yarn": "^1.22.10"
+  },
+  "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.1",
     "@reduxjs/toolkit": "^1.5.0",
     "add": "^2.0.6",
     "axios": "^0.21.1",
     "bootstrap": "^4.5.3",
-    "browser-sync": "^2.26.13",
-    "browser-sync-webpack-plugin": "2.2.2",
-    "cross-env": "^7.0.3",
     "i18next": "^19.8.4",
     "i18next-xhr-backend": "^3.2.2",
     "immutable": "^4.0.0-rc.12",
-    "laravel-mix": "^6.0.9",
     "postcss": "^8.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
@@ -36,9 +39,6 @@
     "react-select": "^3.2.0",
     "redux": "^4.0.5",
     "redux-immutable": "^4.0.0",
-    "redux-logger": "^3.0.6",
-    "sass": "^1.32.4",
-    "sass-loader": "8.*",
-    "yarn": "^1.22.10"
+    "redux-logger": "^3.0.6"
   }
 }
