@@ -2,12 +2,26 @@
 
 namespace SrcLab\Permissions\Repositories;
 
+use Illuminate\Support\Facades\Cache;
+
 class Permission extends Repository
 {
     /**
      * @var \Illuminate\Database\Eloquent\Model
      */
     protected $model = \SrcLab\Permissions\Models\Permission::class;
+
+    /**
+     * Get cached all permissions.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getAllPermissions()
+    {
+        return Cache::remember('permissions', 60*60*2, function () {
+            return $this->query()->get(['id', 'name']);
+        });
+    }
 
     /**
      * Get permissions list.

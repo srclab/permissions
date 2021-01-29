@@ -2,6 +2,7 @@
 
 namespace SrcLab\Permissions;
 
+use Illuminate\Support\Facades\Cache;
 use SrcLab\Permissions\Contracts\WithPermissions;
 use SrcLab\Permissions\Models\Permission;
 use SrcLab\Permissions\Support\Response;
@@ -29,19 +30,12 @@ class Permissions
      */
     public function checkRule(WithPermissions $user, $system_name)
     {
-        $permissions = app_config('app_permissions.permissions');
+        $permissions = app(\SrcLab\Permissions\Repositories\Permission::class)->getAllPermissions();
 
         /**
          * Get permission id.
          */
-        $need_permission_id = 0;
-
-        foreach ($permissions as $permission_id => $permission) {
-            if($permission['name'] == $system_name) {
-                $need_permission_id = $permission_id;
-                break;
-            }
-        }
+        $need_permission_id = $permissions->where('name', $system_name)->first()->id ?? 0;
 
         if($need_permission_id == 0) {
             return false;
@@ -108,6 +102,8 @@ class Permissions
     {
         Permission::create($data);
 
+        Cache::forget('permissions');
+
         return Response::success();
     }
 
@@ -128,6 +124,8 @@ class Permissions
 
         $permission->update($data);
 
+        Cache::forget('permissions');
+
         return Response::success();
     }
 
@@ -146,6 +144,8 @@ class Permissions
         }
 
         $permission->delete();
+
+        Cache::forget('permissions');
 
         return Response::success();
     }
