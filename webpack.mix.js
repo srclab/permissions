@@ -13,8 +13,10 @@ mix
         }
     })
     .react()
-    mix.webpackConfig({
-        devtool: "inline-source-map"
-    })
-    .sourceMaps()
+
+    // mix.webpackConfig({
+    //     devtool: "inline-source-map"
+    // })
+    // .sourceMaps()
+
 ;
