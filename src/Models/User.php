@@ -49,7 +49,7 @@ class User extends Model implements WithPermissions
      */
     public function setGroupIdAttribute($value)
     {
-        $this->{self::getUserGroupField()} = $value;
+        $this->attributes[self::getUserGroupField()] = $value;
     }
 
     /**
