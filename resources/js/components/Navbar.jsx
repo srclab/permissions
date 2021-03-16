@@ -3,7 +3,7 @@ import {withTranslation} from 'react-i18next'
 
 class Navbar extends React.Component {
     render() {
-        const back_url = document.getElementsByName('back-url');
+        const back_url = document.getElementsByName('back-url')[0].content;
         return (
             <nav className="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
                 <a className="navbar-brand col-sm-3 col-md-2 mr-0" role="button">{this.props.t('view.navbar_title')}</a>
