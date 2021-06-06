@@ -22,6 +22,7 @@ export default class OperationStatus extends React.Component {
             return '';
         }
 
+        //todo вынести в отдельный метод и вызвать здесь
         if (this.props.forwardingError) {
             return <div className="alert alert-danger mt-3">{this.props.forwardingError}</div>
         } else if (this.props.validation) {

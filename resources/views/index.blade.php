@@ -12,6 +12,7 @@
 <body>
 <noscript>You need to enable JavaScript to run this app.</noscript>
 <div id="root"></div>
+{{--todo переделать на запрос файлов локализации с сервера--}}
 <script>window.translations = JSON.parse('@json(__('permissions::general'))');</script>
 <script src="{{ asset('/vendor/srclab/permissions/js/app.js') }}"></script>
 </body>
